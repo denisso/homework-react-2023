@@ -1,13 +1,36 @@
-.header , .footer {
+.container {
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 32px;
+  flex-direction: column;
+  background-color: var(--bg-color2);
+
+  .main {
+    flex: 1;
+    padding: var(--padding);
+    display: flex;
+    & > * {
+      flex: 1;
+    }
+  }
+
+  .header,
+  .footer {
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    background-color: var(--bg-color3);
+    color: var(--color2);
+  }
+
+  .header {
+    .cartIcon {
+      color: var(--color2) !important;
+    }
+    .siteName {
+      font-size: 1.6rem;
+    }
+  }
 }
-
-html, body {
-  min-height: 100%;
-}
-
-

@@ -1,0 +1,22 @@
+.inputNumber {
+  display: flex;
+  min-width: 4rem;
+  .btn {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: var(--color2);
+    background-color: var(--btn-inactive);
+    border-radius: .2rem;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--transition-duration);
+    &:hover{
+      background-color: var(--btn-active);
+    }
+  }
+  .number {
+    flex: 1;
+    text-align: center;
+  }
+}
