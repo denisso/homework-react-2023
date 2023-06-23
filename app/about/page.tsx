@@ -1,5 +1,3 @@
-const About = () => {
-  return <>1</>;
+const Page = () => {
+  return <></>;
 };
-
-export default About;
