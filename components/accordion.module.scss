@@ -1,0 +1,23 @@
+.accordion {
+  .title {
+    user-select: none;
+    cursor: pointer;
+  }
+  .dropDown {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    transition: height 1s;
+    &.show {
+      height: auto;
+      .text {
+        position: static;
+      }
+    }
+    .text {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+}
