@@ -1,0 +1,33 @@
+.movie {
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color1);
+  display: flex;
+
+  gap: var(--gap);
+
+  .leftSide {
+    flex: 1 0;
+    position: relative;
+    .poster {
+      max-width: 100%;
+      height: auto;
+      // object-fit: contain;
+      // object-position: top;
+      border-radius: var(--border-radius);
+      display: block;
+    }
+  }
+
+  .rightSide {
+    flex: 4;
+    .firstLine {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        font-size: 1.3rem;
+        font-weight: 900;
+      }
+    }
+  }
+}

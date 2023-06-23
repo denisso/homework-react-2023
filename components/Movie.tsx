@@ -1,8 +1,7 @@
-import styles from "./movies.module.scss";
+import styles from "./movie.module.scss";
 import Image from "next/image";
-import { movies, MovieProps } from "@/data/movies";
+import { MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
-import Link from "next/link";
 
 const Movie = ({ data }: { data: MovieProps }) => {
   const {
@@ -11,6 +10,9 @@ const Movie = ({ data }: { data: MovieProps }) => {
     posterUrl,
     releaseYear,
     genre,
+    rating,
+    director,
+    description,
   } = data;
   return (
     <div className={styles.movie}>
@@ -19,33 +21,27 @@ const Movie = ({ data }: { data: MovieProps }) => {
           className={styles.poster}
           src={posterUrl}
           alt="poster"
-          width={100}
-          height={120}
+          unoptimized={true}
+          width={1000}
+          height={1200}
         />
       </div>
       <div className={styles.rightSide}>
         <div className={styles.firstLine}>
           <div className={styles.title}>
-            <Link href={`/movie/${id}`}>
-              {title} ({releaseYear})
-            </Link>
+            {title} ({releaseYear})
           </div>
           <InputNumber />
         </div>
-        <div>Жанр: {genre}</div>
+        <div><b>Жанр:</b> {genre}</div>
+        <div><b>Год выпуска:</b> {releaseYear}</div>
+        <div><b>Рейтинг:</b> {rating}</div>
+        <div><b>Режисер:</b> {director}</div>
+        <div><b>Описание:</b></div>
+        <div>{description}</div>
       </div>
     </div>
   );
 };
 
-const Movies = () => {
-  return (
-    <div className={styles.movies}>
-      {movies.map((e) => (
-        <Movie key={e.id} data={e} />
-      ))}
-    </div>
-  );
-};
-
-export default Movies;
+export default Movie;
