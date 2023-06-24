@@ -4,7 +4,13 @@ import { MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
 import BlockWrapper from "./BlockWrapper";
 
-const Movie = ({ data }: { data: MovieProps }) => {
+const Movie = ({
+  data,
+  InputComponent,
+}: {
+  data: MovieProps;
+  InputComponent?: typeof InputNumber;
+}) => {
   const {
     title,
     posterUrl,
@@ -31,7 +37,7 @@ const Movie = ({ data }: { data: MovieProps }) => {
           <div className={styles.title}>
             {title} ({releaseYear})
           </div>
-          <InputNumber />
+          {InputComponent ? <InputComponent /> : <></>}
         </div>
         <div>
           <b>Жанр:</b> {genre}

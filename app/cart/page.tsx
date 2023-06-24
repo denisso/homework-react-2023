@@ -1,5 +1,5 @@
-const Movie = () => {
+const Cart = () => {
   return <></>;
 };
 
-export default Movie;
+export default Cart;
