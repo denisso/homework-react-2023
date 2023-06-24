@@ -3,6 +3,7 @@ import Image from "next/image";
 import { movies, MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
 import Link from "next/link";
+import BlockWrapper from "./BlockWrapper";
 
 const Movie = ({ data }: { data: MovieProps }) => {
   const {
@@ -13,7 +14,7 @@ const Movie = ({ data }: { data: MovieProps }) => {
     genre,
   } = data;
   return (
-    <div className={styles.movie}>
+    <BlockWrapper className={styles.movie}>
       <div className={styles.leftSide}>
         <Image
           className={styles.poster}
@@ -34,7 +35,7 @@ const Movie = ({ data }: { data: MovieProps }) => {
         </div>
         <div>Жанр: {genre}</div>
       </div>
-    </div>
+    </BlockWrapper>
   );
 };
 

@@ -2,10 +2,10 @@ import styles from "./movie.module.scss";
 import Image from "next/image";
 import { MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
+import BlockWrapper from "./BlockWrapper";
 
 const Movie = ({ data }: { data: MovieProps }) => {
   const {
-    id,
     title,
     posterUrl,
     releaseYear,
@@ -15,7 +15,7 @@ const Movie = ({ data }: { data: MovieProps }) => {
     description,
   } = data;
   return (
-    <div className={styles.movie}>
+    <BlockWrapper className={styles.movie}>
       <div className={styles.leftSide}>
         <Image
           className={styles.poster}
@@ -33,14 +33,24 @@ const Movie = ({ data }: { data: MovieProps }) => {
           </div>
           <InputNumber />
         </div>
-        <div><b>Жанр:</b> {genre}</div>
-        <div><b>Год выпуска:</b> {releaseYear}</div>
-        <div><b>Рейтинг:</b> {rating}</div>
-        <div><b>Режисер:</b> {director}</div>
-        <div><b>Описание:</b></div>
+        <div>
+          <b>Жанр:</b> {genre}
+        </div>
+        <div>
+          <b>Год выпуска:</b> {releaseYear}
+        </div>
+        <div>
+          <b>Рейтинг:</b> {rating}
+        </div>
+        <div>
+          <b>Режисер:</b> {director}
+        </div>
+        <div>
+          <b>Описание:</b>
+        </div>
         <div>{description}</div>
       </div>
-    </div>
+    </BlockWrapper>
   );
 };
 
