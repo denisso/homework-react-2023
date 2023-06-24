@@ -12,6 +12,7 @@ const Accordion = ({ title, text }: { title: string; text: string }) => {
   const refTextNode = React.useRef<HTMLDivElement>(null);
   const [classShow, setClassShow] = React.useState(false);
   const show = React.useRef(false);
+
   const [heightDropDown, setHeightDropDown] = React.useState<{
     height?: string;
   }>({ height: "0px" });
@@ -19,6 +20,7 @@ const Accordion = ({ title, text }: { title: string; text: string }) => {
   const handleOpenClose: EventHandlerOpenClose = (e) => {
     e.stopPropagation();
     if (refTextNode.current === null) return;
+    // каждый клик на заголовке элемента замеряем текущую высоту текста, с которым нужно работать во время transition
     const heightContent =
       refTextNode.current.getBoundingClientRect().height + "px";
     if (!show.current) {
@@ -38,7 +40,7 @@ const Accordion = ({ title, text }: { title: string; text: string }) => {
       }
     }
   };
-
+  // когда элемент открыт полностью / закончил анимацию, делаем его назависимым от высоты
   const handleTransitionEnd: EventHandlerTransitionEnd = (e) => {
     e.stopPropagation();
     if (show.current) {
