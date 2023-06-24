@@ -1,18 +1,18 @@
-import styles from "./movies.module.scss";
+import styles from "./movieListItem.module.scss";
 import Image from "next/image";
-import { movies, MovieProps } from "@/data/movies";
+import { MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
 import Link from "next/link";
 import BlockWrapper from "./BlockWrapper";
 
-const Movie = ({ data }: { data: MovieProps }) => {
-  const {
-    id,
-    title,
-    posterUrl,
-    releaseYear,
-    genre,
-  } = data;
+type Props = {
+  data: MovieProps;
+  cbInput?: (arg: number) => void;
+  cbDelete?: () => void;
+};
+
+const MovieListItem = ({ data, cbInput, cbDelete }: Props) => {
+  const { id, title, posterUrl, releaseYear, genre } = data;
   return (
     <BlockWrapper className={styles.movie}>
       <div className={styles.leftSide}>
@@ -31,7 +31,8 @@ const Movie = ({ data }: { data: MovieProps }) => {
               {title} ({releaseYear})
             </Link>
           </div>
-          <InputNumber />
+          <InputNumber onInputChange={cbInput} />
+          {cbDelete ? <button onClick={cbDelete}>X</button> : <></>}
         </div>
         <div>Жанр: {genre}</div>
       </div>
@@ -39,14 +40,4 @@ const Movie = ({ data }: { data: MovieProps }) => {
   );
 };
 
-const Movies = () => {
-  return (
-    <div className={styles.movies}>
-      {movies.map((e) => (
-        <Movie key={e.id} data={e} />
-      ))}
-    </div>
-  );
-};
-
-export default Movies;
+export default MovieListItem;

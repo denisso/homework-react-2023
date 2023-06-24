@@ -9,7 +9,7 @@ const Movie = ({
   InputComponent,
 }: {
   data: MovieProps;
-  InputComponent?: typeof InputNumber;
+  InputComponent?: React.ReactElement<typeof InputNumber>;
 }) => {
   const {
     title,
@@ -37,7 +37,7 @@ const Movie = ({
           <div className={styles.title}>
             {title} ({releaseYear})
           </div>
-          {InputComponent ? <InputComponent /> : <></>}
+          {InputComponent ?? <></>}
         </div>
         <div>
           <b>Жанр:</b> {genre}

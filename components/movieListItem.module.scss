@@ -1,0 +1,25 @@
+.movie {
+  display: flex;
+  gap: var(--gap);
+
+  .leftSide {
+    .poster {
+      width: 6.25rem;
+      height: 7.5rem;
+      border-radius: var(--border-radius);
+      display: block;
+    }
+  }
+
+  .rightSide {
+    flex: 1;
+    .firstLine {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        font-size: 1.3rem;
+        font-weight: 900;
+      }
+    }
+  }
+}

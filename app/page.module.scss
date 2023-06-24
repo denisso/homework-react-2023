@@ -8,5 +8,10 @@
 
   .rightSide {
     flex: 1;
+    .movies {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
   }
 }
