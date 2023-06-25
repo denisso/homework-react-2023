@@ -1,0 +1,20 @@
+.cart{
+  display: flex;
+  flex-direction: column;
+}
+.iconBox{
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+  .badge {
+    height: 1.25rem;
+    padding: 0 .3rem;
+    color: var(--color2);
+    background-color: var(--btn-inactive);
+    border-radius: .2rem;
+    text-align: center;
+
+    user-select: none;
+    transition: background-color var(--transition-duration);
+  }
+}

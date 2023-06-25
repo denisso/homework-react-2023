@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TState = {
-  movies: { [key: string]: number };
+  movies: Array<{ movieId: string; count: number }>;
 };
 
-const initialState: TState = { movies: {} };
+const initialState: TState = { movies: [] };
 
 type Reducer = {
   movieId: string;
@@ -15,10 +15,18 @@ const slice = createSlice({
   initialState,
   reducers: {
     plus: (state, { payload }: PayloadAction<Reducer>) => {
-      state.movies[payload.movieId] = (state.movies[payload.movieId] ?? 0) + 1;
+      const movie = state.movies.find((e) => e.movieId === payload.movieId);
+      if (movie) {
+        movie.count += 1;
+      } else {
+        state.movies.push({ movieId: payload.movieId, count: 1 });
+      }
     },
     minus: (state, { payload }: PayloadAction<Reducer>) => {
-      state.movies[payload.movieId] = (state.movies[payload.movieId] ?? 0) - 1;
+      const movie = state.movies.find((e) => e.movieId === payload.movieId);
+      if (movie) {
+        if (movie.count >= 1) movie.count -= 1;
+      }
     },
     remove: (state, { payload }: PayloadAction<Reducer>) => {
       console.log(state, payload);
@@ -27,7 +35,16 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const selectCount = (movieId: string) => ({cart}: {cart: TState}) => {
-  return {count: cart.movies?.[movieId] || 0};
-};
+
+export const selectMovieById =
+  (movieId: string) =>
+  ({ cart }: { cart: TState }) => {
+    const movie = cart.movies.find((e) => e.movieId === movieId) ?? {movieId, count: 0}
+    return movie;
+  };
+
+export const selectMovies = ({ cart: { movies } }: { cart: TState }) => ({
+  movies,
+});
+
 export const { plus, minus, remove } = slice.actions;

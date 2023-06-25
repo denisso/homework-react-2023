@@ -6,12 +6,11 @@ import Link from "next/link";
 import BlockWrapper from "./BlockWrapper";
 
 type Props = {
-  data: MovieProps;
-  cbInput?: (arg: number) => void;
-  cbDelete?: () => void;
+  data?: MovieProps;
 };
 
 const MovieListItem = ({ data }: Props) => {
+  if (!data) return <></>;
   const { id, title, posterUrl, releaseYear, genre } = data;
   return (
     <BlockWrapper className={styles.movie}>

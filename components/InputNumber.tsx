@@ -2,10 +2,10 @@
 import React from "react";
 import styles from "./inputnumber.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { plus, minus, selectCount } from "@/redux/features/cart";
+import { plus, minus, selectMovieById } from "@/redux/features/cart";
 
 const InputNumber = ({ movieId }: { movieId: string }) => {
-  const { count } = useSelector(selectCount(movieId));
+  const { count } = useSelector(selectMovieById(movieId));
   const dispatch = useDispatch();
 
   const handlePlus = () => {
