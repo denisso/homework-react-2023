@@ -1,4 +1,4 @@
-import styles from "./movie.module.scss";
+import styles from "./movieSingle.module.scss";
 import Image from "next/image";
 import { MovieProps } from "@/data/movies";
 import InputNumber from "./InputNumber";
@@ -6,12 +6,11 @@ import BlockWrapper from "./BlockWrapper";
 
 const Movie = ({
   data,
-  InputComponent,
 }: {
   data: MovieProps;
-  InputComponent?: React.ReactElement<typeof InputNumber>;
 }) => {
   const {
+    id,
     title,
     posterUrl,
     releaseYear,
@@ -37,8 +36,7 @@ const Movie = ({
           <div className={styles.title}>
             {title} ({releaseYear})
           </div>
-          {InputComponent ?? <></>}
-        </div>
+          <InputNumber movieId={data.id}/>        </div>
         <div>
           <b>Жанр:</b> {genre}
         </div>

@@ -1,6 +1,6 @@
 "use client";
 import getMovie from "@/app/api/getMovie";
-import Movie from "@/components/Movie";
+import Movie from "@/components/MovieSingle";
 import Reviews from "@/components/Reviews";
 import styles from "./page.module.scss";
 import InputNumber from "@/components/InputNumber";

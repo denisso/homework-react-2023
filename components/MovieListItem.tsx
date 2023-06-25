@@ -11,7 +11,7 @@ type Props = {
   cbDelete?: () => void;
 };
 
-const MovieListItem = ({ data, cbInput, cbDelete }: Props) => {
+const MovieListItem = ({ data }: Props) => {
   const { id, title, posterUrl, releaseYear, genre } = data;
   return (
     <BlockWrapper className={styles.movie}>
@@ -31,8 +31,8 @@ const MovieListItem = ({ data, cbInput, cbDelete }: Props) => {
               {title} ({releaseYear})
             </Link>
           </div>
-          <InputNumber onInputChange={cbInput} />
-          {cbDelete && <button onClick={cbDelete}>X</button>}
+          <InputNumber movieId={data.id} />
+          {/* {cbDelete && <button onClick={cbDelete}>X</button>} */}
         </div>
         <div>Жанр: {genre}</div>
       </div>
