@@ -8,11 +8,15 @@ const InputNumber = ({
   onInputChange?: (arg: number) => void;
 }) => {
   const [num, setNum] = React.useState(0);
-  const plus = () => setNum(num + 1);
-  const minus = () => setNum(num > 0 ? num - 1 : num);
-  React.useEffect(() => {
+  const plus = () => {
+    setNum(num + 1);
     if (onInputChange) onInputChange(num);
-  }, [num, onInputChange]);
+  };
+  const minus = () => {
+    setNum(num > 0 ? num - 1 : num);
+    if (onInputChange) onInputChange(num);
+  };
+
   return (
     <div className={styles.inputNumber}>
       <div className={styles.btn} onClick={minus}>

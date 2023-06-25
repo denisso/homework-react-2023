@@ -32,7 +32,7 @@ const MovieListItem = ({ data, cbInput, cbDelete }: Props) => {
             </Link>
           </div>
           <InputNumber onInputChange={cbInput} />
-          {cbDelete ? <button onClick={cbDelete}>X</button> : <></>}
+          {cbDelete && <button onClick={cbDelete}>X</button>}
         </div>
         <div>Жанр: {genre}</div>
       </div>
