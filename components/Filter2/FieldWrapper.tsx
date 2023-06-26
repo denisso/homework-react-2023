@@ -1,4 +1,4 @@
-import styles from "./filter.module.scss";
+import styles from "./field.module.scss";
 
 const Field = ({
   children,
@@ -9,8 +9,8 @@ const Field = ({
 }) => {
   return (
     <div className={styles.field}>
-      {/* <div className={styles.name}>{name}</div>
-      <div className={styles.component}>{children}</div> */}
+      <div className={styles.name}>{name}</div>
+      <div className={styles.component}>{children}</div>
     </div>
   );
 };

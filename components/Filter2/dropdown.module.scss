@@ -1,8 +1,7 @@
 .dropdown {
-  display: flex;
-  flex-direction: column;
+
   .title {
-    flex: 1;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,6 +18,7 @@
 }
 
 .dropdownMenu {
+  position: absolute;
   display: flex;
   flex-direction: column;
   gap: var(--gap);

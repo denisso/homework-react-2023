@@ -1,8 +1,7 @@
 // "use client";
 import styles from "./filter.module.scss";
 import DropDown from "./DropDown";
-import Field from "./Field";
-
+import Field from "./FieldWrapper";
 
 const Filter = () => {
   return (

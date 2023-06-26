@@ -1,9 +1,15 @@
 import React from "react";
 import styles from "./dropdown.module.scss";
 
-const Title = ({ placeholder }: { placeholder: string }) => {
+const Title = ({
+  placeholder,
+  onClick,
+}: {
+  placeholder: string;
+  onClick: () => void;
+}) => {
   return (
-    <div className={styles.title}>
+    <div className={styles.title} onClick={onClick}>
       <div className={styles.placeholder}>{placeholder}</div>
       <svg
         className={styles.icon}
@@ -24,24 +30,47 @@ const Title = ({ placeholder }: { placeholder: string }) => {
   );
 };
 
-const DropDownMenu = () => {
+const DropDownMenu = ({
+  onClick,
+  items,
+}: {
+  onClick: (arg: string) => void;
+  items: { id: string; text: string }[];
+}) => {
   return (
-    <div>
-      <div>Не выбран</div>
-      <div>Боевик</div>
-      <div>Комедия</div>
-      <div>Фэнтези</div>
-      <div>Ужасы</div>
+    <div className={styles.dropdownMenu}>
+      {items.map(({ id, text }) => (
+        <div key={id} onClick={() => onClick("0")}>
+          {text}
+        </div>
+      ))}
+
+      <div onClick={() => onClick("1")}>Боевик</div>
     </div>
   );
 };
 
-const DropDown = ({ placeholder }: { placeholder: string }) => {
+const items = [
+  { id: "0", text: "Не выбран" },
+  { id: "1", text: "Боевик" },
+];
+
+const DropDown = ({
+  placeholder,
+  name,
+}: {
+  placeholder: string;
+  name?: string;
+}) => {
   const [active, setActive] = React.useState(true);
+  const handleClick = () => {
+    setActive(active ? false : true);
+  };
+  const handleItemDD = (id: string) => {};
   return (
     <div className={styles.dropdown}>
-      <Title placeholder={placeholder}/>
-      {/* {active && <DropDownMenu />} */}
+      <Title placeholder={placeholder} onClick={handleClick} />
+      {active && <DropDownMenu onClick={handleItemDD} items={items} />}
     </div>
   );
 };
