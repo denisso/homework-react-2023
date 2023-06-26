@@ -3,7 +3,7 @@ import { Roboto } from "next/font/google";
 import styles from "./layout.module.scss";
 import Link from "next/link";
 import { StoreProvider } from "@/redux/StoreProvider";
-import { CartIcon } from "@/components/Cart";
+import { CartIcon } from "./cart/page";
 import MoviesLoader from "@/redux/apiQuery/MoviesLoader";
 const roboto = Roboto({
   weight: "400",

@@ -36,11 +36,13 @@ const slice = createSlice({
 
 export default slice.reducer;
 
+// получить количество билетов по ID фильма
 export const selectCartMovieById =
   (movieId: string) =>
   ({ cart }: { cart: TState }) =>
     cart.movies.find((e) => e.movieId === movieId);
 
+// получить все билеты
 export const selectCartMovies = ({ cart }: { cart: TState }) => cart.movies;
 
 export const { plus, minus, remove } = slice.actions;

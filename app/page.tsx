@@ -16,11 +16,11 @@ const Movies = () => {
   const [cinemaId, setCinimaId] = React.useState("");
 
   // получаем данные из кеша без запроса на сервер
-  const moviesAll = useAppSelector(selectAllMovies) as TMovie[];
+  const moviesAll = useAppSelector(selectAllMovies);
 
   const dispatch = useAppDispatch();
 
-  // для проверки на одинаковые запросы
+  // проверка чтобы не было повторныз запросов с одинаковыми данными фильтра
   const prevFilter = React.useRef("");
 
   // Выборка с сервера по cinemaId
@@ -32,7 +32,6 @@ const Movies = () => {
 
   const { data: moviesByCinema } = useAppSelector(selectMoviesByCinema);
 
-  console.log(filter);
   React.useEffect(() => {
     const filterJSON = JSON.stringify(filter);
     if (prevFilter.current !== JSON.stringify(filter)) {
@@ -50,8 +49,6 @@ const Movies = () => {
     );
     return result.unsubscribe;
   }, [dispatch, cinemaId, filter]);
-
-  console.log("Movies moviesByCinema", moviesByCinema?.length);
 
   React.useEffect(() => {
     if (filter.CINEMA === "" && moviesAll.length) {

@@ -9,8 +9,8 @@ export const movieApi = createApi({
     getMovies: builder.query<TMovie[], void>({ query: () => "movies" }),
     getMoviesByCinema: builder.query<TMovie[], string>({
       query: (cinemaId: string) => `movies?cinemaId=${cinemaId}`,
-      // для запросов по кинотеатру на сервер время жизни 60 сек 
-      keepUnusedDataFor: 60
+      // для запросов по кинотеатру на сервер время жизни 60 сек
+      keepUnusedDataFor: 60,
     }),
     getMovie: builder.query<TMovie[], string>({
       query: (movieId: string) => `movie?movieId=${movieId}`,
@@ -33,3 +33,8 @@ export const selectAllMovies = createSelector(
   selectAllMoviesResult,
   (usersResult) => usersResult?.data ?? emptyMovies
 );
+
+export const selectMovieById = (movieId: string) =>
+  createSelector(selectAllMovies, (movies) =>
+    movies.find((movie: TMovie) => movie.id === movieId)
+  );
