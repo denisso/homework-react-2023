@@ -4,6 +4,7 @@ import styles from "./layout.module.scss";
 import Link from "next/link";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { CartIcon } from "@/components/Cart";
+import MoviesLoader from "@/redux/apiQuery/MoviesLoader";
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <StoreProvider>
+          <MoviesLoader/>
           <div className={styles.container}>
             <header className={styles.header}>
               <div className={styles.siteName}>
