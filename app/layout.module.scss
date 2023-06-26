@@ -26,6 +26,8 @@
   }
 
   .header {
+    position: sticky;
+    top: 0;
     .cartIcon {
       color: var(--color2) !important;
     }
