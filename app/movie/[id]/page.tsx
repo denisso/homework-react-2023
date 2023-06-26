@@ -12,7 +12,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   return movie ? (
     <div className={styles.page}>
       <Movie data={movie} />
-      <Reviews data={movie?.reviewIds} />
+      <Reviews movieId={movie?.id} />
     </div>
   ) : (
     <></>

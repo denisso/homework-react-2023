@@ -15,3 +15,10 @@ export type TCinema = {
   name: string;
   movieIds: string[];
 };
+
+export type TReview = {
+  id: string,
+  name: string,
+  text: string,
+  rating: number
+}
