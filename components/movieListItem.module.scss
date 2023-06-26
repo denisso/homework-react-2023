@@ -20,6 +20,15 @@
         font-size: 1.3rem;
         font-weight: 900;
       }
+      .buttons {
+        display: flex;
+        gap: calc(var(--gap) / 2);
+        align-items: center;
+        .btnDelete{
+          user-select: none;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

@@ -1,21 +1,21 @@
 "use client";
+import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { selectCartMovies } from "@/redux/features/cart";
+import { selectCartMovies, remove } from "@/redux/features/cart";
 import styles from "./cart.module.scss";
 import BlockWrapper from "@/components/BlockWrapper";
 import MovieListItem from "@/components/MovieListItem";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector, useAppDispatch } from "@/redux/store";
 import { selectMovieById } from "@/redux/apiQuery/movieApi";
 import Modal from "@/components/Modal";
 
 export const CartIcon = ({ className }: { className?: string }) => {
   const movies = useSelector(selectCartMovies);
+  const count = movies.reduce((r, e) => r + e.count, 0);
   return (
     <Link href="/cart" className={`${styles.iconBox} ${className ?? ""}`}>
-      <div className={styles.badge}>
-        {movies.reduce((r, e) => r + e.count, 0)}
-      </div>
+      {count > 0 && <div className={styles.badge}>{count}</div>}
       <svg
         width="28"
         height="25"
@@ -32,19 +32,39 @@ export const CartIcon = ({ className }: { className?: string }) => {
   );
 };
 
-const Movie = ({ movieId }: { movieId: string }) => {
-  // получаем данные из кеша без запроса на сервер
-  const movie = useAppSelector(selectMovieById(movieId));
+interface IContext {
+  showModal: { show: boolean; movieId?: string };
+  setShowModal: (arg: { show: boolean; movieId?: string }) => void;
+}
 
-  return <MovieListItem data={movie} />;
-};
+const Context = React.createContext<IContext | null>(null);
 
-const Cart = () => {
-  const movies = useSelector(selectCartMovies);
-  const handleModal = (ok: boolean) => {};
+function ClientContext({ children }: { children: React.ReactNode }) {
+  const [showModal, setShowModal] = React.useState({ show: false });
   return (
-    <div className={styles.cart}>
-      <Modal isOpen={true} onClose={handleModal} className={styles.modal}>
+    <Context.Provider value={{ showModal, setShowModal }}>
+      {children}
+    </Context.Provider>
+  );
+}
+
+const ModalComponent = () => {
+  const dispatch = useAppDispatch();
+  const context = React.useContext(Context);
+  const handleModal = (ok: boolean) => {
+    if (!context) return;
+    if (ok) {
+      dispatch(remove({ movieId: context?.showModal?.movieId ?? "" }));
+    }
+    context.setShowModal({ show: false });
+  };
+  return (
+    <>
+      <Modal
+        isOpen={context?.showModal?.show}
+        onClose={handleModal}
+        className={styles.modal}
+      >
         <div className={styles.title}>
           <span className={styles.titleText}>Удаление билета</span>
           <div className="icon">
@@ -64,9 +84,32 @@ const Cart = () => {
         </div>
         <div className={styles.text}>Вы уверены, что хотите удалить билет?</div>
       </Modal>
-      {movies.map(({ movieId }) => (
-        <Movie key={movieId} movieId={movieId} />
-      ))}
+    </>
+  );
+};
+
+const Movie = ({ movieId }: { movieId: string }) => {
+  const context = React.useContext(Context);
+  // получаем данные из кеша без запроса на сервер
+  const movie = useAppSelector(selectMovieById(movieId));
+  const handleDelete = () => {
+    if (!context) return;
+    context.setShowModal({ show: true, movieId: movie?.id });
+  };
+  return <MovieListItem data={movie} onDelete={handleDelete} />;
+};
+
+const Cart = () => {
+  const movies = useSelector(selectCartMovies);
+
+  return (
+    <div className={styles.cart}>
+      <ClientContext>
+        {movies.map(({ movieId }) => (
+          <Movie key={movieId} movieId={movieId} />
+        ))}
+        <ModalComponent />
+      </ClientContext>
       <BlockWrapper className={styles.totalTickets}>
         {"Итого билетов: " + movies.reduce((r, e) => r + e.count, 0)}
       </BlockWrapper>

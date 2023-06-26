@@ -35,7 +35,9 @@ const slice = createSlice({
       }
     },
     remove: (state, { payload }: PayloadAction<Reducer>) => {
-      console.log(state, payload);
+      state.movies = state.movies.filter(
+        (e) => e.movieId !== payload.movieId
+      );
     },
   },
 });

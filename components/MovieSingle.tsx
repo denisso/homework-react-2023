@@ -1,14 +1,10 @@
 import styles from "./movieSingle.module.scss";
 import Image from "next/image";
-import { MovieProps } from "@/data/movies";
+import { TMovie } from "@/types";
 import InputNumber from "./InputNumber";
 import BlockWrapper from "./BlockWrapper";
-
-const Movie = ({
-  data,
-}: {
-  data: MovieProps;
-}) => {
+import { Genres } from "@/redux/apiQuery/movieApi";
+const Movie = ({ data }: { data: TMovie }) => {
   const {
     id,
     title,
@@ -36,9 +32,10 @@ const Movie = ({
           <div className={styles.title}>
             {title} ({releaseYear})
           </div>
-          <InputNumber movieId={data.id}/>        </div>
+          <InputNumber movieId={data.id} />
+        </div>
         <div>
-          <b>Жанр:</b> {genre}
+          <b>Жанр:</b> {Genres[genre] ?? ""}
         </div>
         <div>
           <b>Год выпуска:</b> {releaseYear}

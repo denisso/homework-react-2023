@@ -1,5 +1,3 @@
-
-
 export type TMovie = {
   title: string;
   posterUrl: string;
@@ -10,4 +8,10 @@ export type TMovie = {
   rating: number;
   director: string;
   reviewIds: string[];
+};
+
+export type TCinema = {
+  id: string;
+  name: string;
+  movieIds: string[];
 };

@@ -1,18 +1,9 @@
 "use client";
-import { useGetMoviesQuery } from "./movieApi";
+import { useGetMoviesQuery, useGetCinemasQuery } from "./movieApi";
 
 const MoviesLoader = () => {
-  const { data, isLoading, error } = useGetMoviesQuery();
-
-  if (isLoading) {
-
-    return <></>;
-  }
-
-  if (!data || error) {
-
-    return <></>;
-  }
+  useGetMoviesQuery();
+  useGetCinemasQuery();
 
   return <></>;
 };

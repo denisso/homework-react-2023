@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { createSelector } from "@reduxjs/toolkit";
-import type { TMovie } from "@/types";
+import type { TMovie, TCinema } from "@/types";
 
 export const movieApi = createApi({
   reducerPath: "movie",
@@ -15,6 +15,7 @@ export const movieApi = createApi({
     getMovie: builder.query<TMovie[], string>({
       query: (movieId: string) => `movie?movieId=${movieId}`,
     }),
+    getCinemas: builder.query<TCinema[], void>({ query: () => "cinemas" }),
   }),
   keepUnusedDataFor: Infinity, // Время жизни кеша установлено на бесконечность для все endpoint
 });
@@ -23,6 +24,7 @@ export const {
   useGetMoviesQuery,
   useGetMoviesByCinemaQuery,
   useGetMovieQuery,
+  useGetCinemasQuery,
 } = movieApi;
 
 export const selectAllMoviesResult = movieApi.endpoints.getMovies.select();
@@ -38,3 +40,10 @@ export const selectMovieById = (movieId: string) =>
   createSelector(selectAllMovies, (movies) =>
     movies.find((movie: TMovie) => movie.id === movieId)
   );
+
+export const Genres: {[key: string]: string} = {
+  horror: "Ужасы",
+  fantasy: "Фэнтези",
+  action: "Боевик",
+  comedy: "Комедия",
+};

@@ -26,7 +26,7 @@ const InputNumber = ({
 
   return (
     <div className={styles.inputNumber}>
-      <div className={`${styles.btn} ${!movie?.count ? styles.inactive: "" }`} onClick={handleMinus}>
+      <div className={`${styles.btn} ${!movie?.count || movie?.count <= 0 ? styles.inactive: "" }`} onClick={handleMinus}>
         -
       </div>
       <div className={styles.number}>{movie?.count ?? 0}</div>
