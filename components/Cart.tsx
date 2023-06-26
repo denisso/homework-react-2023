@@ -8,7 +8,7 @@ import MovieListItem from "./MovieListItem";
 import getMovie from "@/app/api/getMovie";
 
 export const CartIcon = ({ className }: { className?: string }) => {
-  const { movies } = useSelector(selectMovies);
+  const movies = useSelector(selectMovies);
   return (
     <Link href="/cart" className={`${styles.iconBox} ${className ?? ""}`}>
       <div className={styles.badge}>{movies.reduce((r, e) => r + e.count, 0)}</div>
@@ -34,7 +34,7 @@ const Movie = ({ movieId }: { movieId: string }) => {
 };
 
 const Cart = () => {
-  const { movies } = useSelector(selectMovies);
+  const movies = useSelector(selectMovies);
 
   return (
     <div className={styles.cart}>

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { plus, minus, selectMovieById } from "@/redux/features/cart";
 
 const InputNumber = ({ movieId }: { movieId: string }) => {
-  const { count } = useSelector(selectMovieById(movieId));
+  const movie = useSelector(selectMovieById(movieId));
   const dispatch = useDispatch();
 
   const handlePlus = () => {
@@ -20,7 +20,7 @@ const InputNumber = ({ movieId }: { movieId: string }) => {
       <div className={styles.btn} onClick={handleMinus}>
         -
       </div>
-      <div className={styles.number}>{count}</div>
+      <div className={styles.number}>{movie?.count ?? 0}</div>
       <div className={styles.btn} onClick={handlePlus}>
         +
       </div>

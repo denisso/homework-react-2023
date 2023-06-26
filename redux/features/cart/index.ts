@@ -38,13 +38,9 @@ export default slice.reducer;
 
 export const selectMovieById =
   (movieId: string) =>
-  ({ cart }: { cart: TState }) => {
-    const movie = cart.movies.find((e) => e.movieId === movieId) ?? {movieId, count: 0}
-    return movie;
-  };
+  ({ cart }: { cart: TState }) =>
+    cart.movies.find((e) => e.movieId === movieId);
 
-export const selectMovies = ({ cart: { movies } }: { cart: TState }) => ({
-  movies,
-});
+export const selectMovies = ({ cart }: { cart: TState }) => cart.movies;
 
 export const { plus, minus, remove } = slice.actions;
