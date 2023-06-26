@@ -26,5 +26,11 @@
         font-weight: 900;
       }
     }
+    .details {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--gap) / 2);
+    }
   }
 }

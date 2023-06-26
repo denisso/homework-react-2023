@@ -6,7 +6,6 @@ import BlockWrapper from "./BlockWrapper";
 import { Genres } from "@/redux/apiQuery/movieApi";
 const Movie = ({ data }: { data: TMovie }) => {
   const {
-    id,
     title,
     posterUrl,
     releaseYear,
@@ -34,6 +33,7 @@ const Movie = ({ data }: { data: TMovie }) => {
           </div>
           <InputNumber movieId={data.id} />
         </div>
+        <div className={styles.details}>
         <div>
           <b>Жанр:</b> {Genres[genre] ?? ""}
         </div>
@@ -50,6 +50,8 @@ const Movie = ({ data }: { data: TMovie }) => {
           <b>Описание:</b>
         </div>
         <div>{description}</div>
+        </div>
+
       </div>
     </BlockWrapper>
   );
