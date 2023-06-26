@@ -16,7 +16,7 @@ const slice = createSlice({
   reducers: {
     plus: (state, { payload }: PayloadAction<Reducer>) => {
       const movie = state.movies.find((e) => e.movieId === payload.movieId);
-      if (movie) {
+      if (movie && movie.count < 30) {
         movie.count += 1;
       } else {
         state.movies.push({ movieId: payload.movieId, count: 1 });
@@ -24,8 +24,14 @@ const slice = createSlice({
     },
     minus: (state, { payload }: PayloadAction<Reducer>) => {
       const movie = state.movies.find((e) => e.movieId === payload.movieId);
+
       if (movie) {
         if (movie.count >= 1) movie.count -= 1;
+        if (movie.count === 0) {
+          state.movies = state.movies.filter(
+            (e) => e.movieId !== payload.movieId
+          );
+        }
       }
     },
     remove: (state, { payload }: PayloadAction<Reducer>) => {

@@ -1,0 +1,34 @@
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--overlay);
+  background: rgba(0, 0, 0, 0.6);
+  .modal {
+    padding: var(--padding);
+    .buttons {
+      
+      display: flex;
+      gap: calc( var(--gap) / 2);
+      .btn {
+        margin-top: 1rem;
+        border-radius: .5rem;
+        border: 2px solid var(--btn-active);
+        padding: 0.5rem 1rem;
+        user-select: none;
+        cursor: pointer;
+        &.ok {
+          background-color: var(--btn-active);
+        }
+        &.cancel {
+          background-color: var(--bg-color1);
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { StoreProvider } from "@/redux/StoreProvider";
 import { CartIcon } from "./cart/page";
 import MoviesLoader from "@/redux/apiQuery/MoviesLoader";
+
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
