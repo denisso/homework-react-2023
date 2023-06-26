@@ -1,23 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { Movie } from "@/types";
-
-interface MoviesResponse {
-  movies: Movie[];
-}
-
-interface MovieResponse {
-  movie: Movie;
-}
+import { createSelector } from "@reduxjs/toolkit";
+import type { TMovie } from "@/types";
 
 export const movieApi = createApi({
   reducerPath: "movie",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/api/" }),
   endpoints: (builder) => ({
-    getMovies: builder.query<MoviesResponse, void>({ query: () => "movies" }),
-    getMovie: builder.query<MovieResponse, string>({
+    getMovies: builder.query<TMovie[], void>({ query: () => "movies" }),
+    getMoviesByCinema: builder.query<TMovie[], string>({
+      query: (cinemaId: string) => `movies?cinemaId=${cinemaId}`,
+      // для запросов по кинотеатру на сервер время жизни 60 сек 
+      keepUnusedDataFor: 60
+    }),
+    getMovie: builder.query<TMovie[], string>({
       query: (movieId: string) => `movie?movieId=${movieId}`,
     }),
   }),
+  keepUnusedDataFor: Infinity, // Время жизни кеша установлено на бесконечность для все endpoint
 });
 
-export const { useGetMoviesQuery, useGetMovieQuery } = movieApi;
+export const {
+  useGetMoviesQuery,
+  useGetMoviesByCinemaQuery,
+  useGetMovieQuery,
+} = movieApi;
+
+export const selectAllMoviesResult = movieApi.endpoints.getMovies.select();
+
+const emptyMovies: TMovie[] = [];
+
+export const selectAllMovies = createSelector(
+  selectAllMoviesResult,
+  (usersResult) => usersResult?.data ?? emptyMovies
+);

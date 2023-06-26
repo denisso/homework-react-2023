@@ -1,4 +1,6 @@
-export type Movie = {
+
+
+export type TMovie = {
   title: string;
   posterUrl: string;
   releaseYear: number;

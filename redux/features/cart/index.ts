@@ -36,11 +36,11 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const selectMovieById =
+export const selectCartMovieById =
   (movieId: string) =>
   ({ cart }: { cart: TState }) =>
     cart.movies.find((e) => e.movieId === movieId);
 
-export const selectMovies = ({ cart }: { cart: TState }) => cart.movies;
+export const selectCartMovies = ({ cart }: { cart: TState }) => cart.movies;
 
 export const { plus, minus, remove } = slice.actions;
