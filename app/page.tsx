@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./page.module.scss";
-import Filter from "@/components/Filter2";
+import Filter from "@/components/Filter";
 import BlockWrapper from "@/components/BlockWrapper";
 import MovieListItem from "@/components/MovieListItem";
 import { selectAllMovies } from "@/redux/apiQuery/movieApi";

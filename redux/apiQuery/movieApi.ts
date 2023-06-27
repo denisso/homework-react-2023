@@ -45,9 +45,11 @@ export const selectMovieById = (movieId: string) =>
     movies.find((movie: TMovie) => movie.id === movieId)
   );
 
-export const Genres: { [key: string]: string } = {
-  horror: "Ужасы",
-  fantasy: "Фэнтези",
-  action: "Боевик",
-  comedy: "Комедия",
-};
+type Items = { value: string; text: string };
+
+export const Genres: Items[] = [
+  { value: "horror", text: "Ужасы" },
+  { value: "fantasy", text: "Фэнтези" },
+  { value: "action", text: "Боевик" },
+  { value: "comedy", text: "Комедия" },
+];

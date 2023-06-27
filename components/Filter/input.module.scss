@@ -1,0 +1,17 @@
+.inputWrapper {
+  border: 2px solid #e1e3e6;
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  &.active {
+    border-color: var(--btn-active);
+  }
+  .input {
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    width: 100%;
+    &::placeholder{
+      opacity: .65;
+    }
+  }
+}

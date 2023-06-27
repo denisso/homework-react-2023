@@ -22,6 +22,9 @@ const MovieListItem = ({ data, onDelete }: Props) => {
           alt="poster"
           width={100}
           height={120}
+          priority
+          placeholder="blur"
+          blurDataURL={posterUrl}
         />
       </div>
       <div className={styles.rightSide}>
@@ -51,7 +54,7 @@ const MovieListItem = ({ data, onDelete }: Props) => {
             )}
           </div>
         </div>
-        <div>Жанр: {Genres[genre] ?? ""}</div>
+        <div>Жанр: {Genres.find((e) => e.value === genre)?.text ?? ""}</div>
       </div>
     </BlockWrapper>
   );

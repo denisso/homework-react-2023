@@ -16,8 +16,11 @@ const slice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setFilter: (state, { payload }: PayloadAction<Filter>) => {
-      state.filter = payload;
+    setFilter: (state, { payload }: PayloadAction<Partial<Filter>>) => {
+      for(const filter in payload){
+        state.filter[filter] = payload[filter]
+      }
+
     },
   },
 });

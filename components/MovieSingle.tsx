@@ -21,9 +21,12 @@ const Movie = ({ data }: { data: TMovie }) => {
           className={styles.poster}
           src={posterUrl}
           alt="poster"
+          priority
           unoptimized={true}
           width={1000}
           height={1200}
+          placeholder="blur"
+          blurDataURL={posterUrl}
         />
       </div>
       <div className={styles.rightSide}>
@@ -34,24 +37,23 @@ const Movie = ({ data }: { data: TMovie }) => {
           <InputNumber movieId={data.id} />
         </div>
         <div className={styles.details}>
-        <div>
-          <b>Жанр:</b> {Genres[genre] ?? ""}
+          <div>
+            <b>Жанр:</b> { Genres.find((e) => e.value === genre)?.text ?? ""}
+          </div>
+          <div>
+            <b>Год выпуска:</b> {releaseYear}
+          </div>
+          <div>
+            <b>Рейтинг:</b> {rating}
+          </div>
+          <div>
+            <b>Режисер:</b> {director}
+          </div>
+          <div>
+            <b>Описание:</b>
+          </div>
+          <div>{description}</div>
         </div>
-        <div>
-          <b>Год выпуска:</b> {releaseYear}
-        </div>
-        <div>
-          <b>Рейтинг:</b> {rating}
-        </div>
-        <div>
-          <b>Режисер:</b> {director}
-        </div>
-        <div>
-          <b>Описание:</b>
-        </div>
-        <div>{description}</div>
-        </div>
-
       </div>
     </BlockWrapper>
   );
