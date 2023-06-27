@@ -1,14 +1,24 @@
 "use client";
 import React from "react";
 import styles from "./page.module.scss";
-import Filter from "@/components/Filter";
+import FilterComponent from "@/components/Filter";
 import BlockWrapper from "@/components/BlockWrapper";
 import MovieListItem from "@/components/MovieListItem";
 import { selectAllMovies } from "@/redux/apiQuery/movieApi";
 import type { TMovie } from "@/types";
-import { selectFilter } from "@/redux/features/filter";
+import { selectFilter, Filter } from "@/redux/features/filter";
 import { movieApi } from "@/redux/apiQuery/movieApi";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
+
+const filterMovies = (movies: TMovie[], filter: Filter) => {
+  const { GENRE, TITLE } = filter;
+  return movies.filter((movie) => {
+    return (
+      (!GENRE || movie.genre === GENRE) &&
+      (!TITLE || movie.title.includes(TITLE))
+    );
+  });
+};
 
 const Movies = () => {
   const [movies, setMovies] = React.useState<TMovie[]>([]);
@@ -52,22 +62,10 @@ const Movies = () => {
 
   React.useEffect(() => {
     if (filter.CINEMA === "" && moviesAll.length) {
-      if (typeof filter.TITLE === "string" && filter.TITLE !== "") {
-        setMovies(
-          moviesAll.filter((e) => e.title.includes(filter?.TITLE ?? ""))
-        );
-      } else {
-        setMovies(moviesAll);
-      }
+      setMovies(filterMovies(moviesAll, filter))
     } else {
       if (!Array.isArray(moviesByCinema)) return;
-      if (typeof filter.TITLE === "string" && filter.TITLE !== "") {
-        setMovies(
-          moviesByCinema.filter((e) => e.title.includes(filter?.TITLE ?? ""))
-        );
-      } else {
-        setMovies(moviesByCinema);
-      }
+      setMovies(filterMovies(moviesByCinema, filter))
     }
   }, [moviesAll, moviesByCinema, filter]);
 
@@ -84,7 +82,7 @@ export default function Home() {
   return (
     <div className={styles.block}>
       <BlockWrapper className={styles.leftSide}>
-        <Filter />
+        <FilterComponent />
       </BlockWrapper>
       <div className={styles.rightSide}>
         <Movies />

@@ -104,7 +104,7 @@ const DropDown = ({
     }
   };
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} onMouseLeave={() => setActive(false)}>
       <Title
         placeholder={placeholder}
         onClick={handleClick}

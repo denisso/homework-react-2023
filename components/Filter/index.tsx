@@ -6,35 +6,48 @@ import { Genres } from "@/redux/apiQuery/movieApi";
 import { useGetCinemasQuery } from "@/redux/apiQuery/movieApi";
 import FieldWrapper from "./FieldWrapper";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { setFilter, selectFilter } from "@/redux/features/filter";
+import {
+  setTitle,
+  setGenre,
+  setCinema,
+  selectFilter,
+} from "@/redux/features/filter";
 import Input from "./Input";
 
-const MovieName = () => {
+const MovieTitle = () => {
+  const { filter } = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
   const name = "Название";
   const onChange = (val: string) => {
-    console.log(val);
+    dispatch(setTitle(val));
   };
   const onBlur = () => {
-    console.log("blur");
+    // console.log("blur");
   };
 
-  const onFocus = () => {
-
-  }
+  const onFocus = () => {};
   return (
     <FieldWrapper name={name}>
-      <Input onBlur={onBlur} onChange={onChange} onFocus={onFocus} placeholder={"Введите название"}/>
+      <Input
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        placeholder={"Введите название"}
+        value={filter["TITLE"]}
+      />
     </FieldWrapper>
   );
 };
 
 const MovieGanre = () => {
+  const dispatch = useAppDispatch();
+  const { filter } = useAppSelector(selectFilter);
   const name = "Жанр";
   const onFocus = (focus: boolean) => {
-    console.log(focus);
+    // console.log(focus);
   };
   const onChangeAndClose = (value: string) => {
-    console.log("dd value", value);
+    dispatch(setGenre(value));
   };
   return (
     <FieldWrapper name={name}>
@@ -43,18 +56,22 @@ const MovieGanre = () => {
         placeholder="Выберите жанр"
         onFocus={onFocus}
         onChangeAndClose={onChangeAndClose}
+        value={filter["GENRE"]}
       />
     </FieldWrapper>
   );
 };
+
 const MovieCinema = () => {
+  const { filter } = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
   const name = "Кинотеатр";
   const { data: cinemas } = useGetCinemasQuery();
   const onFocus = (focus: boolean) => {
-    console.log(focus);
+    // console.log(focus);
   };
   const onChangeAndClose = (value: string) => {
-    console.log("dd value", value);
+    dispatch(setCinema(value));
   };
   const items: DropDownItems[] =
     cinemas?.reduce<DropDownItems[]>((r, e) => {
@@ -69,29 +86,18 @@ const MovieCinema = () => {
         placeholder="Выберите кинотеатр"
         onFocus={onFocus}
         onChangeAndClose={onChangeAndClose}
+        value={filter["CINEMA"]}
       />
     </FieldWrapper>
   );
 };
-const Filter = () => {
-  const dispatch = useAppDispatch();
-  const [movieName, setMovieName] = React.useState("");
 
-  const [cinemaID, setCinemaID] = React.useState("");
-  const handleSubmit = () => {
-    dispatch(
-      setFilter({
-        TITLE: movieName,
-        GENRE: "",
-        CINEMA: cinemaID,
-      })
-    );
-  };
+const Filter = () => {
   return (
     <div className={styles.block}>
       <div className={styles.title}>Фильтр поиска</div>
       <div className={styles.filters}>
-        <MovieName />
+        <MovieTitle />
         <MovieGanre />
         <MovieCinema />
       </div>
