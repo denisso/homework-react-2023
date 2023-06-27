@@ -1,7 +1,8 @@
 .accordion {
+  user-select: none;
+  cursor: pointer;
   .title {
-    user-select: none;
-    cursor: pointer;
+    font-weight: 900;
   }
   .dropDown {
     position: relative;

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./accordion.module.scss";
+import BlockWrapper from "./BlockWrapper";
 
 type EventHandlerOpenClose = (event: React.MouseEvent<HTMLDivElement>) => void;
 
@@ -8,7 +9,7 @@ type EventHandlerTransitionEnd = (
   event: React.TransitionEvent<HTMLDivElement>
 ) => void;
 
-const Accordion = ({ title, text }: { title: string; text: string }) => {
+const AccordionItem = ({ title, text }: { title: string; text: string }) => {
   const refTextNode = React.useRef<HTMLDivElement>(null);
   const [classShow, setClassShow] = React.useState(false);
   const show = React.useRef(false);
@@ -25,17 +26,16 @@ const Accordion = ({ title, text }: { title: string; text: string }) => {
       refTextNode.current.getBoundingClientRect().height + "px";
     if (!show.current) {
       show.current = true;
-      setHeightDropDown({height: heightContent});
+      setHeightDropDown({ height: heightContent });
     } else {
       show.current = false;
       if (classShow) {
-        setHeightDropDown({height: heightContent});
+        setHeightDropDown({ height: heightContent });
         setTimeout(() => {
           setClassShow(false);
           setHeightDropDown({});
         }, 0);
-      }
-      else{
+      } else {
         setHeightDropDown({});
       }
     }
@@ -50,22 +50,23 @@ const Accordion = ({ title, text }: { title: string; text: string }) => {
   };
 
   return (
-    <div className={styles.accordion}>
-      <div className={styles.title} onClick={handleOpenClose}>
-        {title}
-      </div>
-      <div
-        className={`${styles.dropDown} ${classShow ? styles.show : ""}`}
-        onTransitionEnd={handleTransitionEnd}
-        style={heightDropDown}
-      >
-        <div className={styles.text} ref={refTextNode}>
-          {text}
+    <div onClick={handleOpenClose} className={styles.accordion}>
+      <BlockWrapper>
+        <div >
+          <div className={styles.title}>{title}</div>
+          <div
+            className={`${styles.dropDown} ${classShow ? styles.show : ""}`}
+            onTransitionEnd={handleTransitionEnd}
+            style={heightDropDown}
+          >
+            <div className={styles.text} ref={refTextNode}>
+              {text}
+            </div>
+          </div>
         </div>
-      </div>
-      <div></div>
+      </BlockWrapper>
     </div>
   );
 };
 
-export default Accordion;
+export default AccordionItem;
