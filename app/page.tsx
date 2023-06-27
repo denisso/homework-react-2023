@@ -15,7 +15,7 @@ const filterMovies = (movies: TMovie[], filter: Filter) => {
   return movies.filter((movie) => {
     return (
       (!GENRE || movie.genre === GENRE) &&
-      (!TITLE || movie.title.includes(TITLE))
+      (!TITLE || movie.title.toLowerCase().includes(TITLE.toLowerCase()))
     );
   });
 };
@@ -62,10 +62,10 @@ const Movies = () => {
 
   React.useEffect(() => {
     if (filter.CINEMA === "" && moviesAll.length) {
-      setMovies(filterMovies(moviesAll, filter))
+      setMovies(filterMovies(moviesAll, filter));
     } else {
       if (!Array.isArray(moviesByCinema)) return;
-      setMovies(filterMovies(moviesByCinema, filter))
+      setMovies(filterMovies(moviesByCinema, filter));
     }
   }, [moviesAll, moviesByCinema, filter]);
 
