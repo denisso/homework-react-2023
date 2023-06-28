@@ -9,6 +9,11 @@ import type { TMovie } from "@/types";
 import { selectFilter, Filter } from "@/redux/features/filter";
 import { movieApi } from "@/redux/apiQuery/movieApi";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Главная страница",
+};
 
 const filterMovies = (movies: TMovie[], filter: Filter) => {
   const { GENRE, TITLE } = filter;

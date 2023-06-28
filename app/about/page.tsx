@@ -3,9 +3,11 @@ import path from "path";
 import fs from "fs";
 import styles from "./page.module.scss";
 
+
 const Page = () => {
   let content: string[] = [];
   try {
+    // получаем данные из файла на сервере 
     const jsonDirectory = path.join(process.cwd(), "public", "data");
     content = JSON.parse(
       fs.readFileSync(jsonDirectory + "/about.json", "utf8")
