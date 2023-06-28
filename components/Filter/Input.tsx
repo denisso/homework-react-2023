@@ -19,12 +19,14 @@ const Input = ({
 }: InputProps) => {
   const [val, setVal] = React.useState(value ?? "");
   const [active, setActive] = React.useState(false);
-  // const debounceChange = React.useCallback(
-  //   (value: string) => {
-  //     return debounce(() => onChange(value));
-  //   },
-  //   [onChange]
-  // );
+  const onChangeDep = React.useCallback((value: string) => {
+    onChange(value);
+    // console.log("Changed debounce:", value);
+  }, [onChange]);
+  const debouncedOnChanget = React.useMemo(() => {
+    return debounce(onChangeDep, 1000);
+  }, [onChangeDep]);
+
   const onBlurEvent = () => {
     setActive(false);
     onBlur();
@@ -44,7 +46,7 @@ const Input = ({
         onFocus={onFocusEvent}
         onChange={(e) => {
           setVal(e.target.value);
-          onChange(e.target.value);
+          debouncedOnChanget(e.target.value);
         }}
       />
     </div>
