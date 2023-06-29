@@ -9,7 +9,7 @@ export const movieApi = createApi({
     getMovies: builder.query<TMovie[], void>({ query: () => "movies" }),
     getMoviesByCinema: builder.query<TMovie[], string>({
       query: (cinemaId: string) => `movies?cinemaId=${cinemaId}`,
-      // для запросов по кинотеатру на сервер время жизни 60 сек
+      // для запросов по кинотеатру на сервер время жизни кеша 60 сек
       keepUnusedDataFor: 60,
     }),
     getMovie: builder.query<TMovie[], string>({
@@ -20,7 +20,7 @@ export const movieApi = createApi({
       query: (movieId: string) => `reviews?movieId=${movieId}`,
     }),
   }),
-  keepUnusedDataFor: Infinity, // Время жизни кеша установлено на бесконечность для все endpoint
+  keepUnusedDataFor: Infinity, // Время жизни кеша установлено на бесконечность длях все endpoint
 });
 
 export const {
