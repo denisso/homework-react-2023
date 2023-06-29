@@ -16,7 +16,11 @@ const slice = createSlice({
   reducers: {
     plus: (state, { payload }: PayloadAction<Reducer>) => {
       const movie = state.movies.find((e) => e.movieId === payload.movieId);
-      if (movie && movie.count < 30) {
+      if (movie) {
+        if (movie?.count === 30) {
+          movie.count = 30;
+          return;
+        }
         movie.count += 1;
       } else {
         state.movies.push({ movieId: payload.movieId, count: 1 });
@@ -35,9 +39,7 @@ const slice = createSlice({
       }
     },
     remove: (state, { payload }: PayloadAction<Reducer>) => {
-      state.movies = state.movies.filter(
-        (e) => e.movieId !== payload.movieId
-      );
+      state.movies = state.movies.filter((e) => e.movieId !== payload.movieId);
     },
   },
 });
